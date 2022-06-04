@@ -25,6 +25,7 @@ $p5 = $_POST['peso5'];
 // };
 
          //criado para interface//
+
 function media($n1,$n2,$n3,$n4,$n5){
        $media = ($n1 + $n2 + $n3 + $n4 + $n5) / 5;
        return number_format($media, 1, '.', ',');

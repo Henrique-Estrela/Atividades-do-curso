@@ -5,16 +5,16 @@
      <hr><label for="resultado" class="text-center"><h1>Resultado!</h1></label><hr><br>
 
      <label for="resultado" class="text-center"><h2>Sua media:</h2><br></label>
-     <h2 class="text-center"><?php print_r(media($n1,$n2,$n3,$n4,$n5));?></h2>
+     <h2 class="text-center"><?php echo(media($n1,$n2,$n3,$n4,$n5));?></h2>
 
      <label for="resultado" class="text-center"><h2>Sua media ponderada:</h2></label>
-     <h2 class="text-center"><?php print_r(mediaP($n1,$n2,$n3,$n4,$n5,$p1,$p2,$p3,$p4,$p5));?></h2>
+     <h2 class="text-center"><?php echo(mediaP($n1,$n2,$n3,$n4,$n5,$p1,$p2,$p3,$p4,$p5));?></h2>
 
      <label for="resultado" class="text-center"><h2>Sua maior media:</h2></label>
-     <h2 class="text-center"><?php print_r(maior($n1,$n2,$n3,$n4,$n5));?></h2>
+     <h2 class="text-center"><?php echo(maior($n1,$n2,$n3,$n4,$n5));?></h2>
 
      <label for="resultado" class="text-center"><h2>Sua menor media:</h2></label>
-     <h2 class="text-center"><?php print_r(menor($n1,$n2,$n3,$n4,$n5));?></h2>
+     <h2 class="text-center"><?php echo(menor($n1,$n2,$n3,$n4,$n5));?></h2>
 
     </form>
   </div>
