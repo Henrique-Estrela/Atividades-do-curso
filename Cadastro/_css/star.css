@@ -59,7 +59,7 @@ input, textarea, button {
 form {
   position: absolute;
   padding: 30px 20px;
-  width: 900px;
+  width: 700px;
   border-radius: 7px;
   background-color: white;
   backdrop-filter: blur(5px);

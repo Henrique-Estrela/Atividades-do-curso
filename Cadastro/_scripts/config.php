@@ -2,7 +2,7 @@
 $servidor = 'localhost';
 $usuario = 'root';
 $senha = '';
-$banco = 'ideia_site';
+// $banco = '';criar banco
 
 // String de conexão
 $mysqli = new mysqli($servidor, $usuario, $senha, $banco);
