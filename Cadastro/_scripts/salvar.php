@@ -13,11 +13,11 @@ $cep = $_POST['cep'];
 $rua = $_POST['rua'];
 $cidade = $_POST['cidade'];
 $estado = $_POST['estado'];
-$situacao = $_POST['situacao'];
+
 
 if(cadastro_contato($email)==0){
 
-  $sql = "INSERT INTO contato (nome,cep,rua,cidade,estado,situacao) VALUES ('$nome','$cep','$rua','$cidade','$estado','$situacao')";
+  $sql = "INSERT INTO contato (nome,cep,rua,cidade,estado) VALUES ('$nome','$cep','$rua','$cidade','$estado')";
   $query = $mysqli->query($sql);
   
   ?>

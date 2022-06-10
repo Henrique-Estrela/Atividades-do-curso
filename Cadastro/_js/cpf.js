@@ -1,51 +1,126 @@
-function _cpf(cpf) {	
-	cpf = cpf.replace(/[^\d]+/g,'');	
-	if(cpf == '') return false;	
-	// Elimina CPFs invalidos conhecidos	
-	if (cpf.length != 11 || 
-		cpf == "00000000000" || 
-		cpf == "11111111111" || 
-		cpf == "22222222222" || 
-		cpf == "33333333333" || 
-		cpf == "44444444444" || 
-		cpf == "55555555555" || 
-		cpf == "66666666666" || 
-		cpf == "77777777777" || 
-		cpf == "88888888888" || 
-		cpf == "99999999999")
-			return false;		
-	// Valida 1o digito	
-	add = 0;	
-	for (i=0; i < 9; i ++)		
-		add += parseInt(cpf.charAt(i)) * (10 - i);	
-		rev = 11 - (add % 11);	
-		if (rev == 10 || rev == 11)		
-			rev = 0;	
-		if (rev != parseInt(cpf.charAt(9)))		
-			return false;		
-	// Valida 2o digito	
-	add = 0;	
-	for (i = 0; i < 10; i ++)		
-		add += parseInt(cpf.charAt(i)) * (11 - i);	
-	rev = 11 - (add % 11);	
-	if (rev == 10 || rev == 11)	
-		rev = 0;	
-	if (rev != parseInt(cpf.charAt(10)))
-		return false;		
-	return true;   
+
+// Limpa Campos do Formulário
+function limpa_formulario()
+{
+    var forms = document.querySelector('#painel_form_consulta');
+    var campos = forms.querySelectorAll('[name]');
+    
+    for (var i = 0; i < campos.length; i++) 
+    {
+        var campo = campos[i];
+        if(campo instanceof HTMLInputElement)
+        {
+            if(campo.type == 'text')
+            {                                                                                                                                           
+                if(campo.length > 1) 
+                {
+                    for(var j = 0; j < campo.length; j++)
+                        campo[j].value = "";
+                }
+            }
+        } 
+        else if(campo instanceof HTMLSelectElement)
+        {
+            campo.selectedIndex = 0;
+        }
+    }
 }
 
 
-function validarCPF(el){
-  if(!_cpf(el.value)){
-      alert("CPF Inválido! " + el.value);
-  el.value="" ;   
-  }
+function remove_linhas(t)
+{
+    while(t.rows.length > 1)
+    {
+        t.deleteRow(1);
+    }    
+}
+
+
+/* Retorna a faixa de cep  */
+function pesquisar_faixa_cep(dados,chave)
+{ 
+    /* Faixas de CEP */ 
+   var tipo = "";
+   var faixa_cep = ""; 
+   if ( dados[chave].faixasCep[0] )
+   {
+        var faixa_cep_inicial = "";
+        var faixa_cep_final = ""; 
+        var tamanho = dados[chave].faixasCep.length;
+        var cont = 0;
+        for (var i = 0; i < tamanho; i++)
+        {
+            cont = cont + 1;     
+            tipo = dados[chave].faixasCep[i].tipo;
+            //faixa_cep_inicial = dados[chave].faixasCep[i].cepInicial.substring(0, 5) + "-" +  dados[chave].faixasCep[i].cepInicial.substring(5, 8); 
+            //faixa_cep_final   = dados[chave].faixasCep[i].cepFinal.substring(0, 5) + "-" +  dados[chave].faixasCep[i].cepFinal.substring(5, 8); 
+            faixa_cep_inicial = dados[chave].faixasCep[i].cepInicial
+            faixa_cep_final   = dados[chave].faixasCep[i].cepFinal
+            if (faixa_cep_inicial.length > 1 && faixa_cep_final.length > 1 )
+            {    
+                if (cont < 2)
+                {    
+                    faixa_cep = faixa_cep_inicial + "  a  " +  faixa_cep_final; 
+                }
+                else
+                {    
+                    faixa_cep = faixa_cep + ",   " + faixa_cep_inicial + "  a " +  faixa_cep_final; 
+                }    
+            } 
+        } 
+    }
+    return faixa_cep;
 }
 
 
 
-$(document).ready(function(){
-	$('#cpf').mask('000.000.000-00', {reverse: true});
-	$('#cep').mask('00000-000');
-});
+/* Retorna a faixa da caixa postal  */
+function pesquisar_faixa_caixa_postal(dados,chave)
+{ 
+    /* Faixas de Caixa Postal */
+    var faixa_cxp = "";        
+    if ( dados[chave].faixasCaixaPostal[0] )
+    {    
+        var faixa_cxp_inicial = "";
+        var faixa_cxp_final = "";
+        var tamanho = dados[chave].faixasCaixaPostal.length;
+        var cont = 0;
+        for (var i = 0; i < tamanho; i++)
+        {
+            cont = cont + 1;                
+            faixa_cxp_inicial = dados[chave].faixasCaixaPostal[i].caixaInicial; 
+            faixa_cxp_final   = dados[chave].faixasCaixaPostal[i].caixaFinal;
+            if ( faixa_cxp_inicial.length > 0 && faixa_cxp_final.length > 0 )
+            {    
+                if (cont < 2)
+                {    
+                    faixa_cxp = faixa_cxp_inicial + "  a  " +  faixa_cxp_final; 
+                }
+                else
+                {    
+                    faixa_cxp = faixa_cxp + ",   " + faixa_cxp_inicial + "  a " +  faixa_cxp_final; 
+                }    
+            } 
+        }        
+    }
+    return faixa_cxp;
+}
+
+
+
+function faixa_cep_tipo(dados,chave)
+{ 
+   /* Faixas de CEP */ 
+   var tipo = "";
+   if ( dados[chave].faixasCep[0] )
+   {
+        var tamanho = dados[chave].faixasCep.length;
+        var cont = 0;
+        for (var i = 0; i < tamanho; i++)
+        {
+            cont = cont + 1;     
+            tipo = dados[chave].faixasCep[i].tipo;
+        } 
+    }
+    return tipo;
+}

@@ -2,31 +2,21 @@
 <?php include "menu.php"; ?>
 <section id="cadastro">
   <div class="wrapper flex_box">
-    <title class="name"><h3>Cadastro de Clientes</h3></title>
+    
     
       <form class="row g-3" method="post" action="_scripts/salvar.php">
-              <div class="personal-image">
-                <label class="label">
-                  <input type="file" />
-                  <figure class="personal-figure">
-                    <img id="img" src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png">
-                    <figcaption class="personal-figcaption">
-                      <img src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png">
-                    </figcaption>
-                  </figure>
-                </label>
-              </div>
+              <label for="titulo" class="form-label" id="titulo"><h1>Cadastro de Envio</h1></label>
               <div class="col-md-12">
                   <label for="nome" class="form-label">Nome</label>
                   <input type="text" placeholder="Digite seu Nome" class="form-control caixa" name="nome" id="nome" required>
               </div>
               
-
               <div class="col-md-12">
                 <label for="inputCep" class="form-label">
                   CEP:
                 </label>
                 <input type="text" name="cep" id="cep" placeholder="Digite seu CEP" onblur="pesquisacep(this.value);"  maxlength="9" class="form-control caixa"  required>
+                <a class="ncep" href="https://buscacepinter.correios.com.br/app/endereco/index.php">Não sei meu CEP!</a>
               </div>
 
               <div class="col-md-12">

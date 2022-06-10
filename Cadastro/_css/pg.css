@@ -68,3 +68,17 @@ body::-webkit-scrollbar-thumb{
   #img{
       width: 120px;
   }
+
+  #titulo{
+    color: rgb(199, 183, 58);
+    display: flex;
+    position: relative;
+    justify-content: center;
+  }
+
+  .ncep{
+    color: #b69269;
+    display: flex;
+    position: relative;
+    justify-content: end;
+  }

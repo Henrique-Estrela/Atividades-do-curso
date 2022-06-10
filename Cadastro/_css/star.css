@@ -223,10 +223,12 @@ form.fade_in {
 }
 
 a {
-  color: white;
+
+  color: #b69269;
   text-decoration: none;
 }
 
 a:hover {
+  color: #a46a28;
   text-decoration: underline;
 }
