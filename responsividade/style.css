@@ -1,0 +1,79 @@
+body{
+    background-color: rgb(131, 167, 235);
+    
+    
+}
+
+.navbar{
+    height: 7rem;
+    background-color: rgba(0, 0, 0, 0.229);
+}
+.nav-item{
+    margin-right: 9rem
+}
+
+section {
+    display: flex;
+    margin-top: 2rem;
+    margin-left: 20px;
+}
+  
+article {
+text-align: center;
+background-color: blue;
+color: white;
+width: 30rem;
+margin-left: 0;
+margin-right: 10px;
+margin-bottom: 10px;
+padding: 10px;
+}
+
+
+
+section,.baixo, article {
+border-radius: 10px;
+
+}
+
+.baixo{
+    width: 91rem;
+    height: 20rem;
+}
+
+
+
+@media screen and (max-width: 600px) {
+
+    #primeira{
+        display: none;
+    }
+    .baixo{
+        width: 91rem;
+        height: 20rem;
+    }
+     article {
+        height: 12rem;
+    }
+    h3,.baixo, article {
+        border-radius: 10px;
+        font-size: 1rem;
+    }
+  }
+  
+  
+  @media screen and (max-width: 480px) {
+    section {
+        margin-left: 5px;
+    }
+    article {
+        height: 15rem;
+    }
+    h3,.baixo, article {
+        border-radius: 10px;
+        font-size: 0.7rem;
+    }
+    .baixo{
+        height: 10rem;
+    }
+  }
