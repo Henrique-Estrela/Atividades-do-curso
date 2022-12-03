@@ -1,7 +1,7 @@
 from entities.book import Book
 from repositories.Book_repository import BooksRepository
 
-class import_repository:
+class importRepository:
 
     file_book = list(open("books.csv", "r", encoding="utf-8"))
     

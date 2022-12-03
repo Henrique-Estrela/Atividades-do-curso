@@ -62,16 +62,28 @@ for book in file_book[1:]:
 
 # 8. O sistema deve conter as seguintes validações, lembrando que cada validação dessa deve ter sua respectiva função e seu respectivo teste unitário/integração.
 
-- Verificar se o estoque do livro foi baixado
-- Não permitir inserir um código de cliente que já existe
-- Não permitir inserir um código de pedido que já existe
-- Não permitir vender um livro com valor zerado
-- Não permitir fazer um pedido sem cliente
-- Não permitir um pedido sem livro
-- Só é permitido informar UM pedido no pedido
-- Caso o formato do valor do esteja errado retornar 0
-- Não permitir vender o mesmo livro novamente, pois a livraria só possui 1 estoque
-- Verificar se o código do livro que está sendo vendido, existe, caso não exista aborta o pedido e volta para o menu
+
+
+- Verificar se o estoque do livro foi baixado =  ok
+
+- Não permitir inserir um código de cliente que já existe =  ok
+
+- Não permitir inserir um código de pedido que já existe =  ok
+
+- Não permitir vender um livro com valor zerado = ok
+
+- Não permitir fazer um pedido sem cliente = ok
+
+- Não permitir um pedido sem livro = ok
+
+- Só é permitido informar UM livro no pedido =  ok
+
+- Caso o formato do valor do esteja errado retornar 0 = ok
+
+- Não permitir vender o mesmo livro novamente, pois a livraria só possui 1 estoque = ok
+
+- Verificar se o código do livro que está sendo vendido, existe, caso não exista aborta o pedido e volta para o menu = ok
+
 
 # 9. Formato dos relatórios
 

@@ -13,6 +13,7 @@ class BooksRepository:
                 return True
 
         return False
+    
 
     def get_book(self, book_id: int):
         for book in self.list_books:
@@ -21,12 +22,28 @@ class BooksRepository:
 
         return Book(-1, "Book not found!", "", "", "", 0)
     
+    def verif_if_total_price_exists(self, id: int) -> bool:
+        for book in self.list_books:
+            if (book.id == id): 
+                if(book.price == 0):
+                    return False
+        return True
 
-    # def format_str_price_to_float(self, price: str) -> float:
-    #     try:
-    #         return float(price.replace("R$ ", "").replace(",", "."))
-    #     except:
-    #         return 0
+    def verify_stock(self, id) -> bool:
+        for book in self.list_books:
+            if (book.id == id):
+                if(book.stock > 0):
+                    return False
+        return True
+            
+ 
+
+    def baixar_estoque(self, name) -> bool:
+        for book in self.list_books:
+            if (book.name == name):
+                book.stock -= 1
+                return True
+        return False
             
 
     

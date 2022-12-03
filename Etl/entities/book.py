@@ -9,14 +9,3 @@ class Book:
         self.stock: int = 1
 
     
-    def verify_stock(self, quantidade) -> bool:
-        if (self.stock > quantidade):
-            return True
-        else:
-            return False
-
-    def baixar_stock(self, quantidade) -> None:
-        self.stock -= quantidade
-
-
-    
