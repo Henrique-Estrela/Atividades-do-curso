@@ -1,0 +1,106 @@
+-- Questão 1
+SELECT NO_MUNICIPIO_ESC,AVG(NU_NOTA_CN), AVG(NU_NOTA_CH), AVG(NU_NOTA_LC), AVG(NU_NOTA_MT)  FROM `base` GROUP BY NO_MUNICIPIO_ESC
+
+
+-- Questão 2
+SELECT TP_SEXO, COUNT(*) as quantidade , ROUND((COUNT(*) / (SELECT COUNT(*) FROM base WHERE NO_MUNICIPIO_ESC in ('Feira de Santana','Salvador','Cama?ari')))*100,2)  as Percentagem FROM base WHERE NO_MUNICIPIO_ESC in ('Feira de Santana','Salvador','Cama?ari') GROUP BY TP_SEXO  
+
+-- Questão 3
+
+select 
+a.tp_cor_raca, 
+    CASE
+    WHEN a.TP_COR_RACA = 1 THEN 'Branca'
+    WHEN a.TP_COR_RACA = 2 THEN 'Preta'
+    WHEN a.TP_COR_RACA = 3 THEN 'Parda'
+    WHEN a.TP_COR_RACA = 4 THEN 'Amarela'
+    WHEN a.TP_COR_RACA = 5 THEN 'Indigena'
+    WHEN a.TP_COR_RACA = 6 THEN 'Não dispoe da informaçao'
+    ELSE 'Não Declarado'
+    END as teste,
+(select CASE
+    WHEN x.Q006 = 'B' THEN 'Até R$ 1.100,00'
+    WHEN x.Q006 = 'C' THEN 'De R$ 1.100,01 até R$ 1.650,00.'
+    WHEN x.Q006 = 'D' THEN 'De R$ 1.650,01 até R$ 2.200,00.'
+    WHEN x.Q006 = 'E' THEN 'De R$ 2.200,01 até R$ 2.750,00.'
+    WHEN x.Q006 = 'F' THEN 'De R$ 2.750,01 até R$ 3.300,00.'
+    WHEN x.Q006 = 'G' THEN 'De R$ 3.300,01 até R$ 4.400,00.'
+    WHEN x.Q006 = 'H' THEN 'De R$ 4.400,01 até R$ 5.500,00.'
+    WHEN x.Q006 = 'I' THEN 'De R$ 5.500,01 até R$ 6.600,00.'
+    WHEN x.Q006 = 'J' THEN 'De R$ 6.600,01 até R$ 7.700,00.'
+    WHEN x.Q006 = 'K' THEN 'De R$ 7.700,01 até R$ 8.800,00.'
+    WHEN x.Q006 = 'L' THEN 'De R$ 8.800,01 até R$ 9.900,00.'
+    WHEN x.Q006 = 'M' THEN 'De R$ 9.900,01 até R$ 11.000,00.'
+    WHEN x.Q006 = 'N' THEN 'De R$ 11.000,01 até R$ 13.200,00.'
+    WHEN x.Q006 = 'O' THEN 'De R$ 13.200,01 até R$ 16.500,00.'
+    WHEN x.Q006 = 'P' THEN 'De R$ 16.500,01 até R$ 22.000,00.'
+    WHEN x.Q006 = 'Q' THEN 'Acima de R$ 22.000,00.'
+    ELSE 'Nenhuma Renda'
+    END as renda
+from base x group by x.q006, x.TP_COR_RACA having count(*) = max(a.contPessoas) and x.tp_cor_raca = a.tp_cor_raca) as renda 
+from 
+  (SELECT TP_COR_RACA, Q006, count(Q006) as contPessoas from  base GROUP BY TP_COR_RACA, Q006 order by tp_cor_raca, contPessoas DESC) a 
+group by a.TP_COR_RACA, teste
+  
+
+-- Questão 4
+SELECT TP_SEXO, COUNT(*) FROM base WHERE Q006 in('E', 'F','G', 'H','I','J','K','L','M','N','O','P','Q') GROUP BY TP_SEXO
+
+-- Questão 5
+SELECT DISTINCT(NO_MUNICIPIO_ESC), 
+sum( 
+    CASE 
+    WHEN Q010 = 'A' THEN 0
+    WHEN Q010 = 'B' THEN 1
+    WHEN Q010 = 'C' THEN 1
+    WHEN Q010 = 'D' THEN 1
+    WHEN Q010 = 'E' THEN 1
+    ELSE 0
+    END) as quantidade_carros, 
+sum( 
+    CASE 
+    WHEN Q011 = 'A' THEN 0
+    WHEN Q011 = 'B' THEN 1
+    WHEN Q011 = 'C' THEN 1
+    WHEN Q011 = 'D' THEN 1
+    WHEN Q011 = 'E' THEN 1
+    ELSE 0
+    END) as quantidade_motos
+from base GROUP BY NO_MUNICIPIO_ESC; 
+-- Questão 6
+
+SELECT NU_NOTA_REDACAO, NU_NOTA_MT FROM base WHERE NU_NOTA_REDACAO = (SELECT max(NU_NOTA_REDACAO) FROM base) ORDER BY NU_NOTA_REDACAO DESC
+
+-- Questão 7
+
+SELECT  
+sum( 
+    CASE 
+    WHEN TP_ESTADO_CIVIL = '0' THEN 0
+    WHEN TP_ESTADO_CIVIL = '1' THEN 0
+    WHEN TP_ESTADO_CIVIL = '2' THEN 1
+    WHEN TP_ESTADO_CIVIL = '3' THEN 0
+    WHEN TP_ESTADO_CIVIL = '4' THEN 0
+    ELSE 0
+    END) as casados,
+sum( 
+    CASE 
+    WHEN TP_ESTADO_CIVIL = '0' THEN 0
+    WHEN TP_ESTADO_CIVIL = '1' THEN 0
+    WHEN TP_ESTADO_CIVIL = '2' THEN 0
+    WHEN TP_ESTADO_CIVIL = '3' THEN 1
+    WHEN TP_ESTADO_CIVIL = '4' THEN 0
+    ELSE 0
+    END) as divorciados,
+sum( 
+    CASE 
+    WHEN TP_ESTADO_CIVIL = '0' THEN 0
+    WHEN TP_ESTADO_CIVIL = '1' THEN 0
+    WHEN TP_ESTADO_CIVIL = '2' THEN 1
+    WHEN TP_ESTADO_CIVIL = '3' THEN 1
+    WHEN TP_ESTADO_CIVIL = '4' THEN 0
+    ELSE 0
+    END) as total
+from base WHERE q006 in('G','H','I','J','K','L','M','N','O','P','Q');
+
+-- Questão 8
